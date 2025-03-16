@@ -1,3 +1,5 @@
+const API_URL = "https://whatsapp-api-node-ict7.onrender.com/enviar"; 
+
 async function enviarMensagem(){
   const telefone = document.getElementById('telefone').value;
   const mensagem = document.getElementById('mensagem').value;
@@ -8,7 +10,7 @@ async function enviarMensagem(){
     return;
   }
 
-  const response = await fetch('http://localhost:3000/enviar', {
+  const response = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ telefone, mensagem })
