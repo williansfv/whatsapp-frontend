@@ -10,18 +10,23 @@ async function enviarMensagem(){
     return;
   }
 
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ telefone, mensagem })
-  });
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ telefone, mensagem })
+    });
 
-  const resultado = await response.json();
+    const resultado = await response.json();
 
-  if (resultado.success) {
-    respostaDiv.innerHTML = '✅ Mensagem enviada com sucesso!';
-  } else {
-    respostaDiv.innerHTML = '❌ Erro ao enviar mensagem. Confira o console.';
-    console.error(resultado.error);
+    if (resultado.success) {
+      respostaDiv.innerHTML = '<p class="success">✅ Mensagem enviada com sucesso!</p>';
+    } else {
+      respostaDiv.innerHTML = '<p class="error">❌ Erro ao enviar mensagem. Confira o console.</p>';
+      console.error(resultado.error);
+    }
+  } catch (error) {
+    respostaDiv.innerHTML = '<p class="error">❌ Erro ao conectar ao servidor.</p>';
+    console.error("Erro de conexão:", error);
   }
 }
